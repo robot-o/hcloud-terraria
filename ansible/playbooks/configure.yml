@@ -1,0 +1,31 @@
+---
+- hosts: all
+  become: true
+  vars:
+    admin_user: 'root'
+
+  tasks:
+    - name: Install aptitude using apt
+      apt: 
+        name: aptitude
+        state: latest 
+        update_cache: yes 
+        force_apt_get: yes
+
+    - name: ensure latest versions of packages are installed
+      apt: 
+        state: latest 
+        update_cache: yes
+        name: ['docker.io', 'docker-compose', 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools', 'unrar', 'unzip', 'build-essential']
+
+    - name: Add admin user to docker group
+      user:
+        name: "{{ admin_user }}"
+        append: yes
+        groups: 'docker'
+
+    - name: Install Python Prerequisites
+      pip:
+        executable: '/usr/bin/pip3'
+        state: latest
+        name: ['docker', 'docker-compose', 'PyYAML']

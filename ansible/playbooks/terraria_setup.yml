@@ -1,0 +1,28 @@
+---
+- hosts: all
+  become: true
+  vars:
+    admin_user: 'root'
+
+  tasks:
+    - name: Ensure Terraria world directory is present
+      file:
+        path: "/terraria/world"
+        owner: "{{ admin_user }}"
+        group: "{{ admin_user }}"
+        state: directory
+        mode: "0755"
+
+    - name: Ensure Terraria Docker Container is running
+      docker_container:
+        name: terraria_game
+        image: ryshe/terraria:latest
+        pull: false
+        state: started
+        restart_policy: unless-stopped
+        detach: true
+        interactive: true
+        volumes:
+          - "/terraria/world:/world"
+        ports:
+          - "7777:7777"

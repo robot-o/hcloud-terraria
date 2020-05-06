@@ -1,0 +1,13 @@
+hcloud_token = "yourtokenhere"
+server_name  = "yourservernameforidentificationhere"
+server_image = "ubuntu-20.04"
+server_type  = "cx21"
+location     = "hel1"
+
+namecheap_user          = "yournamecheapuserhere"
+namecheap_token         = "yournamecheapapitokenhere"
+namecheap_user_pubip    = "yourlocalcomputerpubliciphere"
+namecheap_domain        = "yourdomainnamehere"
+namecheap_domain_record = "yourrecordnamehere"
+
+ssh_private_key = "~/.ssh/id_rsa"
